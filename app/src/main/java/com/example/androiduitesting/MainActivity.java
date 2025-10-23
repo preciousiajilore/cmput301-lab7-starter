@@ -2,6 +2,7 @@ package com.example.androiduitesting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout nameField;
     ArrayAdapter<String> cityAdapter;
     ArrayList<String> dataList;
+
+    private String sendCity;
+
+    public static final String CITY_TO_SEND = "com.example.androiduitesting.CITY_TO_SEND";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         cityList.setAdapter(cityAdapter);
+
+        //TODO: By clicking on the city list, the UI should change to another activity which is "ShowActivity"
+        cityList.setOnItemClickListener((parent, view, position, id) -> {
+            //TODO:Get the city at that was clicked on
+            sendCity = cityAdapter.getItem(position);
+
+            //TODO:Go to show Activity
+            goToShowActivity();
+        });
 
         final Button addButton = findViewById(R.id.button_add);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -64,5 +78,15 @@ public class MainActivity extends AppCompatActivity {
                 cityAdapter.clear();
             }
         });
+    }
+
+    private void goToShowActivity() {
+        //TODO:Create Intent
+        Intent intent = new Intent(this, ShowActivity.class);
+
+        intent.putExtra(CITY_TO_SEND, sendCity);
+        startActivity(intent);
+
+
     }
 }
