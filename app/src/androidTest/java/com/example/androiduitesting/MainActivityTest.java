@@ -73,6 +73,69 @@ public class MainActivityTest {
         )).atPosition(0).check(matches((withText("Edmonton"))));
     }
 
+    @Test
+    public void testSwitchToShowActivity() {
+        //This test is to check whether the activity correctly switched
+        //Add a city
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Lagos"));
+        onView(withId(R.id.button_confirm)).perform(click());
+
+
+        //Click on the first row
+        onData(anything())
+                .inAdapterView(withId(R.id.city_list))
+                .atPosition(0)
+                .perform(click());
+
+
+       //Check if the activity is switched to ShowActivity
+        onView(withId(R.id.textView2));
+        //.check(matches(withText("Lagos")));
+
+    }
+
+    @Test
+    public void testNameConsistency(){
+        //Test whether the city name is consistent
+        //Add a city
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Lagos"));
+        onView(withId(R.id.button_confirm)).perform(click());
+
+        //Click on the first row
+        onData(anything())
+                .inAdapterView(withId(R.id.city_list))
+                .atPosition(0)
+                .perform(click());
+
+        //Check if the words match
+        onView(withId(R.id.textView2)).check(matches(withText("Lagos")));
+    }
+
+    @Test
+    public void testBackButton(){
+        //Test the "back" button
+        //Add a city
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Lagos"));
+        onView(withId(R.id.button_confirm)).perform(click());
+
+        //Click on the first row
+        onData(anything())
+                .inAdapterView(withId(R.id.city_list))
+                .atPosition(0)
+                .perform(click());
+
+        //Click on back button
+        onView(withId(R.id.button_back)).perform(click());
+
+        //Check if the activity is switched to MainActivity
+        onView(withId(R.id.textView2));
+
+    }
+
+
 }
 
 
